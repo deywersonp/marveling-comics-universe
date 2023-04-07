@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import { Layout } from '@/layout'
+import { Box, Text } from '@chakra-ui/react'
 
 export default function Home() {
   return (
@@ -8,9 +10,14 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <h1>Hello World</h1>
-      </main>
+
+      <Layout>
+        <Box w="100%" bgColor="gray.900" p="4">
+          <Text>
+            Hello World
+          </Text>
+        </Box>
+      </Layout>
     </>
   )
 }
