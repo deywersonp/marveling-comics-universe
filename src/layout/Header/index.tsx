@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { Logo } from '@/components/Logo';
+import Link from 'next/link';
 
 export const Header = () => {
   return (
@@ -12,8 +13,11 @@ export const Header = () => {
       mt="4"
       px="8"
       align="center"
+      justifyContent={["center", "flex-start"]}
     >
-      <Logo />
+      <Link href="/">
+        <Logo />
+      </Link>
     </Flex>
   )
 };
