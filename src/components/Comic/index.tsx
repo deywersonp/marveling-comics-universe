@@ -1,8 +1,8 @@
 import { Box, GridItem } from "@chakra-ui/react";
 
+import { Thumbnail } from "../Thumbnail";
 import { Creators } from "./Creators";
 import { Title } from "./Title";
-import { Thumbnail } from "./Thumbnail";
 
 import { MarvelComicProps } from "@/types/marvelComic";
 
@@ -19,6 +19,10 @@ export const Comic = ({ data, onClick }: ComicProps) => {
         <Thumbnail
           src={`${data.thumbnail.path}.${data.thumbnail.extension}`}
           alt={`${data.title} Thumbnail`}
+          _groupHover={{
+            transition: 'transform 0.3s',
+            transform: 'translateY(-1%)'
+          }}
         />
 
         <Title title={data.title} />

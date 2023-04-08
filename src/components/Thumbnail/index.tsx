@@ -1,21 +1,18 @@
 import Image from "next/image"
-import { Box } from "@chakra-ui/react"
+import { Box, BoxProps } from "@chakra-ui/react"
 
-interface ThumbnailProps {
+interface ThumbnailProps extends BoxProps {
   src: string;
   alt: string;
 }
 
-export const Thumbnail = ({ src, alt }: ThumbnailProps) => {
+export const Thumbnail = ({ src, alt, ...rest }: ThumbnailProps) => {
   return (
     <Box
       position="relative"
       width="100%"
       style={{ aspectRatio: '1/1.5' }}
-      _groupHover={{
-        transition: 'transform 0.3s',
-        transform: 'translateY(-1%)'
-      }}
+      {...rest}
     >
       <Image
         src={src}
