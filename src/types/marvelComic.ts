@@ -1,6 +1,11 @@
-type Url = {
+type MarvelComicUrl = {
   type: string;
   url: string;
+};
+
+type MarvelComicDates = {
+  type: string;
+  date: string;
 };
 
 type MarvelComicThumbnail = {
@@ -8,14 +13,14 @@ type MarvelComicThumbnail = {
   extension: string;
 };
 
-type CreatorsItem = {
+type MarvelComicCreatorsItem = {
   resourceURI: string;
   name: string;
   role: string;
 };
 
 export type MarvelComicCreators = {
-  items: CreatorsItem[];
+  items: MarvelComicCreatorsItem[];
 };
 
 export type MarvelComicProps = {
@@ -26,7 +31,8 @@ export type MarvelComicProps = {
   creators: MarvelComicCreators;
   thumbnail: MarvelComicThumbnail;
   modified: Date;
-  urls: Url[];
+  dates: MarvelComicDates[];
+  urls: MarvelComicUrl[];
 };
 
 export type MarvelComicsResult = {

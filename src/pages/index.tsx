@@ -1,13 +1,14 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head'
 
 import md5 from 'md5';
 
-import { Box, Grid } from '@chakra-ui/react'
+import { Box, Grid, useDisclosure } from '@chakra-ui/react'
 
 import { Layout } from '@/layout'
 import { Comic } from '@/components/Comic';
+import { ComicDetailsModal } from '@/components/ComicDetailsModal';
 
 import { api } from '@/services/api';
 import { MarvelComicProps, MarvelComicsResult } from '@/types/marvelComic';
@@ -17,8 +18,15 @@ interface HomeProps {
 };
 
 export default function Home({ marvelComicsResult }: HomeProps) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedComic, setSelectedComic] = useState<MarvelComicProps | null>(null);
+
   const handleOpenModal = useCallback((data: MarvelComicProps) => {
+    setSelectedComic(data);
+    onOpen();
+
     console.log(data);
+    //eslint-disable-next-line
   }, []);
 
   return (
@@ -43,6 +51,8 @@ export default function Home({ marvelComicsResult }: HomeProps) {
             </Grid>
           )}
         </Box>
+
+        <ComicDetailsModal data={selectedComic} isOpen={isOpen} onClose={onClose} />
       </Layout>
     </>
   )
