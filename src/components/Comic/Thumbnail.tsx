@@ -20,6 +20,7 @@ export const Thumbnail = ({ src, alt }: ThumbnailProps) => {
       <Image
         src={src}
         fill
+        sizes="350px"
         style={{ objectFit: 'contain' }}
         alt={alt}
       />
