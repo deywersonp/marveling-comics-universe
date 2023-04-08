@@ -58,7 +58,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
     const hash = md5(timestamp + privateKey + publicKey);
 
-    const { data } = await api.get<MarvelComicsResult>(`/v1/public/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&orderBy=title,issueNumber`);
+    const { data } = await api.get<MarvelComicsResult>(`/v1/public/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=30&orderBy=title,issueNumber`);
     marvelComicsResult = data;
   } catch (err) {
     console.error(err);
