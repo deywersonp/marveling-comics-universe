@@ -26,7 +26,7 @@ export const Header = () => {
       <IconButton
         as={Link}
         href="/cart"
-        aria-label="Go to cart"
+        aria-label="Ir para o carrinho"
         icon={<HiShoppingBag size={30} />}
         variant="ghost"
         colorScheme='red'
