@@ -1,6 +1,9 @@
-import { Flex } from '@chakra-ui/react';
-import { Logo } from '@/components/Logo';
 import Link from 'next/link';
+import { Flex, IconButton } from '@chakra-ui/react';
+
+import { Logo } from '@/components/Logo';
+
+import { HiShoppingBag } from 'react-icons/hi';
 
 export const Header = () => {
   return (
@@ -8,16 +11,29 @@ export const Header = () => {
       as="header"
       w="100%"
       maxWidth={1440}
-      h="20"
+      height={["40", "20"]}
       mx="auto"
       mt="4"
       px="8"
       align="center"
+      flexDir={["column", "row"]}
       justifyContent={["center", "flex-start"]}
     >
       <Link href="/">
         <Logo />
       </Link>
+
+      <IconButton
+        as={Link}
+        href="/cart"
+        aria-label="Go to cart"
+        icon={<HiShoppingBag size={30} />}
+        variant="ghost"
+        colorScheme='red'
+        borderRadius="full"
+        ml="auto"
+        mt={["5", "0"]}
+      />
     </Flex>
   )
 };
