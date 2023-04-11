@@ -1,19 +1,17 @@
-import { GridItem, IconButton, Show } from "@chakra-ui/react";
-import { TbTrashFilled } from "react-icons/tb";
+import { GridItem, Show } from "@chakra-ui/react";
+import { TrashButton } from "../TrashButton";
 
 type ActionsProps = {
   onClick: () => void;
+  disableButton?: boolean;
 };
 
-export const Actions = ({ onClick }: ActionsProps) => {
+export const Actions = ({ onClick, disableButton }: ActionsProps) => {
   return (
     <Show above="md">
       <GridItem>
-        <IconButton
-          aria-label="Remover produto"
-          icon={<TbTrashFilled size={25} />}
-          variant="ghost"
-          colorScheme="red"
+        <TrashButton
+          isDisabled={disableButton}
           onClick={onClick}
         />
       </GridItem>

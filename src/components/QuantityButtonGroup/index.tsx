@@ -4,17 +4,19 @@ type QuantityButtonGroupProps = {
   amount: number;
   onClickDecrement: () => void;
   onClickIncrement: () => void;
+  disabled?: boolean;
 };
 
 export const QuantityButtonGroup = ({
   amount,
   onClickDecrement,
   onClickIncrement,
+  disabled,
 }: QuantityButtonGroupProps) => {
 
   return (
     <ButtonGroup maxW='140px' isAttached>
-      <Button onClick={onClickDecrement} isDisabled={amount === 1}>-</Button>
+      <Button onClick={onClickDecrement} isDisabled={disabled || amount === 1}>-</Button>
       <Input
         value={amount}
         borderRadius="0"
@@ -24,7 +26,7 @@ export const QuantityButtonGroup = ({
             color: 'inherit'
           }
         }} />
-      <Button onClick={onClickIncrement} isDisabled={amount === 5}>+</Button>
+      <Button onClick={onClickIncrement} isDisabled={disabled || amount === 5}>+</Button>
     </ButtonGroup>
   )
 }

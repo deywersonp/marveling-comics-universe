@@ -1,8 +1,7 @@
-import { Flex, GridItem, Hide, IconButton, Text } from "@chakra-ui/react";
+import { Flex, GridItem, Hide, Text } from "@chakra-ui/react";
 
 import { QuantityButtonGroup } from "../QuantityButtonGroup";
-
-import { TbTrashFilled } from "react-icons/tb";
+import { TrashButton } from "../TrashButton";
 
 import { useCart } from "@/hooks/useCart";
 
@@ -12,11 +11,13 @@ import { ProductProps } from "@/types/product";
 type InfoOnMobileProps = {
   product: ProductProps;
   onClick: () => void;
+  disableButtons?: boolean;
 };
 
 export const InfoOnMobile = ({
   product,
   onClick,
+  disableButtons,
 }: InfoOnMobileProps) => {
   const { updateProductAmount } = useCart();
 
@@ -32,6 +33,7 @@ export const InfoOnMobile = ({
     <Hide above="md">
       <GridItem color="gray.600">
         <QuantityButtonGroup
+          disabled={disableButtons}
           amount={product.amount}
           onClickDecrement={handleProductDecrement}
           onClickIncrement={handleProductIncrement}
@@ -42,11 +44,8 @@ export const InfoOnMobile = ({
             {formatPrice(0)}
           </Text>
 
-          <IconButton
-            aria-label="Remover produto"
-            icon={<TbTrashFilled size={25} />}
-            variant="ghost"
-            colorScheme="red"
+          <TrashButton
+            isDisabled={disableButtons}
             onClick={onClick}
           />
         </Flex>
