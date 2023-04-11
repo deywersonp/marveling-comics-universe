@@ -75,68 +75,77 @@ export default function Cart() {
               </Flex>
             ) :
             (
-              <ProductTable>
-                {cart.map(product => {
-                  return (
-                    <Fragment key={product.comic.id}>
-                      <ProductTable.About
-                        src={`${product.comic.thumbnail.path}.${product.comic.thumbnail.extension}`}
-                        alt={`${product.comic.title} Thumbnail`}
-                        title={product.comic.title}
-                        releaseDate={product.comic.dates.find(d => d.type === 'onsaleDate')?.date}
-                      />
-                      <ProductTable.Quantity product={product} />
-                      <ProductTable.Price />
-                      <ProductTable.Actions onClick={() => removeProduct(product.comic.id)} />
-                      <ProductTable.InfoOnMobile
-                        product={product}
-                        onClick={() => removeProduct(product.comic.id)}
-                      />
-                    </Fragment>
-                  )
-                })}
-              </ProductTable>
-            )}
-
-          <Flex mt="4" flexDir="column">
-            {!!address && (
-              <Box color="gray.600" mb={4}>
-                <Text>
-                  Endereço de Entrega: <Text as="span" fontWeight="bold">{address}</Text>
-                </Text>
-                <Text>
-                  Prazo de Entrega: <Text as="span" color="red" fontWeight="bold">até {deliveryTime} úteis</Text>
-                </Text>
-              </Box>
-            )}
-
-            {isOpenMap && (
               <>
-                <Map onChangeAddress={handleChangeAddress} />
+                <ProductTable>
+                  {cart.map(product => {
+                    return (
+                      <Fragment key={product.comic.id}>
+                        <ProductTable.About
+                          src={`${product.comic.thumbnail.path}.${product.comic.thumbnail.extension}`}
+                          alt={`${product.comic.title} Thumbnail`}
+                          title={product.comic.title}
+                          releaseDate={product.comic.dates.find(d => d.type === 'onsaleDate')?.date}
+                        />
+                        <ProductTable.Quantity
+                          product={product}
+                          disableButtons={isSavingOrder}
+                        />
+                        <ProductTable.Price />
+                        <ProductTable.Actions
+                          disableButton={isSavingOrder}
+                          onClick={() => removeProduct(product.comic.id)}
+                        />
+                        <ProductTable.InfoOnMobile
+                          disableButtons={isSavingOrder}
+                          product={product}
+                          onClick={() => removeProduct(product.comic.id)}
+                        />
+                      </Fragment>
+                    )
+                  })}
+                </ProductTable>
 
-                <Box mt="4" ml="auto">
-                  <Button
-                    isLoading={isSavingOrder}
-                    colorScheme="green"
-                    onClick={handleConfirmDelivery}
-                  >
-                    Confirmar Entrega
-                  </Button>
-                </Box>
+                <Flex mt="4" flexDir="column">
+                  {!!address && (
+                    <Box color="gray.600" mb={4}>
+                      <Text>
+                        Endereço de Entrega: <Text as="span" fontWeight="bold">{address}</Text>
+                      </Text>
+                      <Text>
+                        Prazo de Entrega: <Text as="span" color="red" fontWeight="bold">até {deliveryTime} úteis</Text>
+                      </Text>
+                    </Box>
+                  )}
+
+                  {isOpenMap && (
+                    <>
+                      <Map onChangeAddress={handleChangeAddress} />
+
+                      <Box mt="4" ml="auto">
+                        <Button
+                          isLoading={isSavingOrder}
+                          colorScheme="green"
+                          onClick={handleConfirmDelivery}
+                        >
+                          Confirmar Entrega
+                        </Button>
+                      </Box>
+                    </>
+                  )}
+
+                  {!isOpenMap && !deliveryConfirmed && (
+                    <Box mt="4" ml="auto">
+                      <Button
+                        colorScheme="red"
+                        onClick={handleToggleOpenMap}
+                      >
+                        Informar Endereço de Entrega
+                      </Button>
+                    </Box>
+                  )}
+                </Flex>
               </>
             )}
-
-            {!isOpenMap && !deliveryConfirmed && (
-              <Box mt="4" ml="auto">
-                <Button
-                  colorScheme="red"
-                  onClick={handleToggleOpenMap}
-                >
-                  Informar Endereço de Entrega
-                </Button>
-              </Box>
-            )}
-          </Flex>
         </Box>
       </Layout>
     </>
