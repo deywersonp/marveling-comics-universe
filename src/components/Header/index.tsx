@@ -3,7 +3,7 @@ import { Flex, IconButton } from '@chakra-ui/react';
 
 import { Logo } from '@/components/Logo';
 
-import { HiShoppingBag } from 'react-icons/hi';
+import { TiShoppingCart } from 'react-icons/ti';
 
 export const Header = () => {
   return (
@@ -27,8 +27,8 @@ export const Header = () => {
         as={Link}
         href="/cart"
         aria-label="Ir para o carrinho"
-        icon={<HiShoppingBag size={30} />}
-        variant="ghost"
+        icon={<TiShoppingCart size={30} />}
+        variant="solid"
         colorScheme='red'
         borderRadius="full"
         ml="auto"

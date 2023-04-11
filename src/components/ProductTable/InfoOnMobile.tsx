@@ -4,25 +4,42 @@ import { QuantityButtonGroup } from "../QuantityButtonGroup";
 
 import { TbTrashFilled } from "react-icons/tb";
 
+import { useCart } from "@/hooks/useCart";
+
 import { formatPrice } from "@/utils/format";
+import { ProductProps } from "@/types/product";
 
 type InfoOnMobileProps = {
+  product: ProductProps;
   onClick: () => void;
-  subTotal?: number | undefined;
 };
 
 export const InfoOnMobile = ({
-  subTotal = 0,
+  product,
   onClick,
 }: InfoOnMobileProps) => {
+  const { updateProductAmount } = useCart();
+
+  const handleProductIncrement = () => {
+    updateProductAmount({ comicId: product.comic.id, amount: product.amount + 1 });
+  };
+
+  const handleProductDecrement = () => {
+    updateProductAmount({ comicId: product.comic.id, amount: product.amount - 1 });
+  };
+
   return (
     <Hide above="md">
       <GridItem color="gray.600">
-        <QuantityButtonGroup />
+        <QuantityButtonGroup
+          amount={product.amount}
+          onClickDecrement={handleProductDecrement}
+          onClickIncrement={handleProductIncrement}
+        />
 
         <Flex alignItems="center" w="100%">
           <Text mr="auto">
-            {formatPrice(subTotal)}
+            {formatPrice(0)}
           </Text>
 
           <IconButton

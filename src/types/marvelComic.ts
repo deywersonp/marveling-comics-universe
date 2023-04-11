@@ -4,7 +4,7 @@ type MarvelComicUrl = {
 };
 
 type MarvelComicDates = {
-  type: string;
+  type: 'onsaleDate';
   date: string;
 };
 

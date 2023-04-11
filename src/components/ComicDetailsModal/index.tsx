@@ -15,7 +15,9 @@ import {
 import { Thumbnail } from "../Thumbnail";
 import { ComicInfo } from "./ComicInfo";
 
-import { HiShoppingBag } from 'react-icons/hi';
+import { TiShoppingCart } from 'react-icons/ti';
+
+import { useCart } from "@/hooks/useCart";
 
 interface ComicDetailsModalProps {
   data: MarvelComicProps | null;
@@ -24,6 +26,9 @@ interface ComicDetailsModalProps {
 };
 
 export const ComicDetailsModal = ({ data, isOpen, onClose }: ComicDetailsModalProps) => {
+  const { cart, addProduct } = useCart();
+
+  const alreadyHasThisProduct = cart.find(product => data?.id === product.comic.id);
   const releaseDate = data?.dates?.find(date => date.type === 'onsaleDate');
 
   return (
@@ -58,14 +63,20 @@ export const ComicDetailsModal = ({ data, isOpen, onClose }: ComicDetailsModalPr
                 {!!releaseDate && (
                   <ComicInfo
                     label="Data de Lançamento"
-                    content={new
-                      Date(releaseDate.date).toLocaleDateString()}
+                    content={new Date(releaseDate.date).toLocaleDateString()}
                   />
                 )}
 
                 <Box mt={4} ml="auto" mr={["auto", "auto", "unset"]}>
-                  <Button colorScheme="red" rightIcon={<HiShoppingBag />}>
-                    Adicionar a Sacola
+                  <Button
+                    onClick={() => addProduct(data!)}
+                    colorScheme="red"
+                    rightIcon={<TiShoppingCart />}
+                  >
+                    Adicionar ao Carrinho
+                    {!!alreadyHasThisProduct && (
+                      ` (${alreadyHasThisProduct.amount})`
+                    )}
                   </Button>
                 </Box>
               </Flex>

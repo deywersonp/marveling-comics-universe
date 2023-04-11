@@ -24,8 +24,6 @@ export default function Home({ marvelComicsResult }: HomeProps) {
   const handleOpenModal = useCallback((data: MarvelComicProps) => {
     setSelectedComic(data);
     onOpen();
-
-    console.log(data);
     //eslint-disable-next-line
   }, []);
 

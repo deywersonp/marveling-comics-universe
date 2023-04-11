@@ -14,6 +14,7 @@ export const About = ({
   title,
   releaseDate,
 }: AboutProps) => {
+
   return (
     <GridItem color="gray.600" flexDir="row" display="flex" gap={4}>
       <Box w="80px">
@@ -30,7 +31,7 @@ export const About = ({
 
         {!!releaseDate && (
           <Text fontSize={["sm", "md"]}>
-            Data de Lançamento: {releaseDate}
+            Data de Lançamento: {new Date(releaseDate).toLocaleDateString()}
           </Text>
         )}
       </Box>

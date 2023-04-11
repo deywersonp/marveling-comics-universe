@@ -1,22 +1,22 @@
-import { Button, ButtonGroup, Input, useNumberInput } from "@chakra-ui/react"
+import { Button, ButtonGroup, Input } from "@chakra-ui/react"
 
-export const QuantityButtonGroup = () => {
-  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
-    useNumberInput({
-      step: 1,
-      defaultValue: 1,
-      min: 1,
-      max: 5,
-    })
+type QuantityButtonGroupProps = {
+  amount: number;
+  onClickDecrement: () => void;
+  onClickIncrement: () => void;
+};
 
-  const inc = getIncrementButtonProps()
-  const dec = getDecrementButtonProps()
-  const input = getInputProps()
+export const QuantityButtonGroup = ({
+  amount,
+  onClickDecrement,
+  onClickIncrement,
+}: QuantityButtonGroupProps) => {
 
   return (
     <ButtonGroup maxW='140px' isAttached>
-      <Button {...dec}>-</Button>
-      <Input {...input}
+      <Button onClick={onClickDecrement} isDisabled={amount === 1}>-</Button>
+      <Input
+        value={amount}
         borderRadius="0"
         disabled={true}
         _disabled={{
@@ -24,7 +24,7 @@ export const QuantityButtonGroup = () => {
             color: 'inherit'
           }
         }} />
-      <Button {...inc}>+</Button>
+      <Button onClick={onClickIncrement} isDisabled={amount === 5}>+</Button>
     </ButtonGroup>
   )
 }
