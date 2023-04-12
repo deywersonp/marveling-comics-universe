@@ -36,6 +36,20 @@ export default function Cart() {
     try {
       setIsSavingOrder(true);
 
+      if (!address) {
+        toast({
+          title: 'Oops!',
+          description: `É necessário informar um endereço de entrega!`,
+          status: 'warning',
+          duration: 7000,
+          position: 'top-right',
+          isClosable: true,
+        })
+
+        setIsSavingOrder(false);
+        return;
+      }
+
       setTimeout(() => {
         toast({
           title: 'Pedido Cadastrado com sucesso!',
@@ -119,7 +133,7 @@ export default function Cart() {
 
                   {isOpenMap && (
                     <>
-                      <Map onChangeAddress={handleChangeAddress} />
+                      <Map onChangeAddress={handleChangeAddress} disabled={isSavingOrder} />
 
                       <Box mt="4" ml="auto">
                         <Button
