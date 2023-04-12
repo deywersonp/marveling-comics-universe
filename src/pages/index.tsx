@@ -4,21 +4,31 @@ import Head from 'next/head'
 
 import { dehydrate } from 'react-query';
 
-import { Box, Flex, Grid, Text, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, Flex, Grid, Text, useDisclosure } from '@chakra-ui/react'
+import BeatLoader from 'react-spinners/BeatLoader';
 
 import { Layout } from '@/layout'
 import { Comic } from '@/components/Comic';
 import { ComicDetailsModal } from '@/components/ComicDetailsModal';
 
 import { getMarvelComicsByServerSide, useMarvelComics } from '@/hooks/useMarvelComics';
-import { MarvelComicProps } from '@/types/marvelComic';
+import { MarvelComicProps, MarvelComicsResult } from '@/types/marvelComic';
 import { queryClient } from '@/services/queryClient';
 
 export default function Home() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data: marvelComicsResult, error } = useMarvelComics();
-
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedComic, setSelectedComic] = useState<MarvelComicProps | null>(null);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  } = useMarvelComics(currentPage);
+
+  const allComicsData = data?.pages?.reduce((acc: MarvelComicsResult[], page) => acc.concat(page), []) || [];
 
   const handleOpenModal = useCallback((data: MarvelComicProps) => {
     setSelectedComic(data);
@@ -40,15 +50,34 @@ export default function Home() {
               <Text>Falha ao obter listagem de quadrinhos</Text>
             </Flex>
           ) : (
-            <Grid
-              w="100%"
-              templateColumns={['repeat(2, 1fr)', null, 'repeat(3, 1fr)', 'repeat(6, 1fr)']}
-              gap={4}
-            >
-              {marvelComicsResult?.data?.results?.map(comic => (
-                <Comic key={comic.id} data={comic} onClick={handleOpenModal} />
-              ))}
-            </Grid>
+            <>
+              <Grid
+                w="100%"
+                templateColumns={['repeat(2, 1fr)', null, 'repeat(3, 1fr)', 'repeat(6, 1fr)']}
+                gap={4}
+              >
+                {allComicsData.map(comicsData => comicsData.data.results.map(comic => (
+                  <Comic key={comic.id} data={comic} onClick={handleOpenModal} />
+                )))}
+              </Grid>
+
+              {hasNextPage && (
+                <Flex alignItems="center" justifyContent="center" mt={4}>
+                  <Button
+                    colorScheme='red'
+                    isLoading={isFetchingNextPage}
+                    spinner={<BeatLoader size={8} color='white' />}
+                    onClick={() => {
+                      fetchNextPage({ pageParam: currentPage + 1 })
+                      setCurrentPage(prevState => prevState + 1)
+                    }}
+                    disabled={!hasNextPage}
+                  >
+                    Carregar Mais
+                  </Button>
+                </Flex>
+              )}
+            </>
           )}
         </Box>
 
