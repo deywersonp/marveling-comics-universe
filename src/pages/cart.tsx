@@ -8,6 +8,7 @@ import { ProductTable } from '@/components/ProductTable'
 import { Map } from '@/components/Map';
 
 import { useCart } from '@/hooks/useCart';
+import { formatDate } from '@/utils/formatDate';
 
 const deliveryTime = '15 dias';
 
@@ -91,13 +92,15 @@ export default function Cart() {
               <>
                 <ProductTable>
                   {cart.map(product => {
+                    const releaseDate = product.comic.dates.find(d => d.type === 'onsaleDate')?.date;
+
                     return (
                       <Fragment key={product.comic.id}>
                         <ProductTable.About
                           src={`${product.comic.thumbnail.path}.${product.comic.thumbnail.extension}`}
                           alt={`${product.comic.title} Thumbnail`}
                           title={product.comic.title}
-                          releaseDate={product.comic.dates.find(d => d.type === 'onsaleDate')?.date}
+                          releaseDate={!releaseDate ? undefined : formatDate({ date: releaseDate, format: 'date' })}
                         />
                         <ProductTable.Quantity
                           product={product}

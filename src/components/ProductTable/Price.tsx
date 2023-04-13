@@ -1,5 +1,5 @@
-import { formatPrice } from "@/utils/format";
 import { GridItem, Show, Text } from "@chakra-ui/react";
+import { formatPrice } from "@/utils/formatPrice";
 
 type PriceProps = {
   value?: number | undefined;

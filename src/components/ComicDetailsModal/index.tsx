@@ -18,6 +18,7 @@ import { ComicInfo } from "./ComicInfo";
 import { TiShoppingCart } from 'react-icons/ti';
 
 import { useCart } from "@/hooks/useCart";
+import { formatDate } from "@/utils/formatDate";
 
 interface ComicDetailsModalProps {
   data: MarvelComicProps | null;
@@ -29,7 +30,9 @@ export const ComicDetailsModal = ({ data, isOpen, onClose }: ComicDetailsModalPr
   const { cart, addProduct } = useCart();
 
   const alreadyHasThisProduct = cart.find(product => data?.id === product.comic.id);
-  const releaseDate = data?.dates?.find(date => date.type === 'onsaleDate');
+  const releaseDate = data?.dates?.find(date => date.type === 'onsaleDate')?.date;
+
+  console.log(releaseDate);
 
   return (
     <Modal isOpen={isOpen} size={["xs", "xl"]} onClose={onClose} isCentered>
@@ -63,7 +66,7 @@ export const ComicDetailsModal = ({ data, isOpen, onClose }: ComicDetailsModalPr
                 {!!releaseDate && (
                   <ComicInfo
                     label="Data de Lançamento"
-                    content={new Date(releaseDate.date).toLocaleDateString()}
+                    content={formatDate({ date: releaseDate, format: 'date' })}
                   />
                 )}
 

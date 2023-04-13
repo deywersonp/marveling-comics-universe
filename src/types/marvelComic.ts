@@ -37,9 +37,6 @@ export type MarvelComicProps = {
 
 export type MarvelComicsResult = {
   nextPage: boolean;
-  attributionHTML: string;
-  attributionText: string;
-  copyright: string;
   data: {
     count: number;
     limit: number;

@@ -31,7 +31,7 @@ export const About = ({
 
         {!!releaseDate && (
           <Text fontSize={["sm", "md"]}>
-            Data de Lançamento: {new Date(releaseDate).toLocaleDateString()}
+            Data de Lançamento: {releaseDate}
           </Text>
         )}
       </Box>

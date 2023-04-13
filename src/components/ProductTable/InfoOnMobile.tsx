@@ -5,7 +5,7 @@ import { TrashButton } from "../TrashButton";
 
 import { useCart } from "@/hooks/useCart";
 
-import { formatPrice } from "@/utils/format";
+import { formatPrice } from "@/utils/formatPrice";
 import { ProductProps } from "@/types/product";
 
 type InfoOnMobileProps = {
