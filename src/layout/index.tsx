@@ -20,7 +20,7 @@ export const Layout = ({ children }: LayoutProps) => {
         {children}
       </Main>
 
-      <footer>
+      <footer style={{ marginTop: 'auto' }}>
         <Flex alignItems="center" justifyContent="center">
           {attributionText}
         </Flex>
