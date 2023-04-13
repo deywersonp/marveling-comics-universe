@@ -32,8 +32,6 @@ export const ComicDetailsModal = ({ data, isOpen, onClose }: ComicDetailsModalPr
   const alreadyHasThisProduct = cart.find(product => data?.id === product.comic.id);
   const releaseDate = data?.dates?.find(date => date.type === 'onsaleDate')?.date;
 
-  console.log(releaseDate);
-
   return (
     <Modal isOpen={isOpen} size={["xs", "xl"]} onClose={onClose} isCentered>
       <ModalOverlay />

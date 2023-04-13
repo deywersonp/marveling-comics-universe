@@ -32,8 +32,6 @@ export const getMarvelComics = async (page: number) => {
 
   const totalPages = Math.round(data.data.total / 30);
 
-  console.log(totalPages);
-
   if (page > totalPages) {
     nextPage = false
   }
