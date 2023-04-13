@@ -20,6 +20,9 @@
 ## 💻 Projeto
 
 **Marveling Comics Universe** é um projeto desenvolvido para listar os quadrinhos da Marvel, além de permitir que o usuário posso simular um fluxo de compra.
+Foram utilizadas as melhores práticas de otimização, performance e SEO para garantir uma navegação fluída e clara para o usuário.
+
+![image](https://user-images.githubusercontent.com/79553681/231615758-622362fd-1bd1-409f-aaaa-36981cdaae1d.png)
 
 <br>
 
